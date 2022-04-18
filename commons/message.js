@@ -21,11 +21,20 @@ function parseAMBMessage(message) {
   const sender = `0x${message.slice(64, 104)}`
   const executor = `0x${message.slice(104, 144)}`
   const dataType = parseInt(message.slice(156, 158), 16)
+  
+  // native coin message
+  if (message.length == 68) {
+    recipient = `0x${message.slice(194, 234)}`
+  }
+  else {
+    recipient = `0x${message.slice(258, 298)}`
+  }
 
   return {
     sender,
     executor,
     messageId,
+    recipient,
     dataType,
     decodedDataType: decodeAMBDataType(dataType)
   }

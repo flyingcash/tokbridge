@@ -29,7 +29,7 @@ services:
       - net_db_bridge_senderforeign
       - net_db_bridge_shutdown
     restart: unless-stopped
-    volumes: ['~/bridge_data/redis:/data']
+    volumes: ['~/bridge_data/redis:/data', '~/bridge_data/access-lists:/mono/oracle/access-lists']
   bridge_request:
     cpus: 0.1
     mem_limit: 500m

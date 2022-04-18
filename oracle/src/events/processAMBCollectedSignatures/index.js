@@ -53,6 +53,8 @@ function processCollectedSignaturesBuilder(config) {
         if (ORACLE_HOME_TO_FOREIGN_ALLOWANCE_LIST || ORACLE_HOME_TO_FOREIGN_BLOCK_LIST) {
           const sender = parsedMessage.sender.toLowerCase()
           const executor = parsedMessage.executor.toLowerCase()
+          const recipient = parsedMessage.recipient.toLowerCase()
+
 
           if (ORACLE_HOME_TO_FOREIGN_ALLOWANCE_LIST) {
             const allowanceList = await readAccessListFile(ORACLE_HOME_TO_FOREIGN_ALLOWANCE_LIST, logger)
@@ -71,6 +73,10 @@ function processCollectedSignaturesBuilder(config) {
             }
             if (blockList.includes(sender)) {
               logger.info({ sender }, 'Validator skips a message. Sender address is in the block list.')
+              return
+            }
+            if (blockList.includes(recipient)) {
+              logger.info({ recipient }, 'Validator skips a message. Recipient address is in the block list.')
               return
             }
           }
