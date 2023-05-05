@@ -5,7 +5,8 @@ const {
   HOME_ERC_TO_NATIVE_ABI,
   FOREIGN_ERC_TO_NATIVE_ABI,
   HOME_AMB_ABI,
-  FOREIGN_AMB_ABI
+  FOREIGN_AMB_ABI,
+  MULTISIGN_ABI
 } = require('../../commons')
 const { web3Home, web3Foreign } = require('../src/services/web3')
 const { add0xPrefix, privateKeyToAddress } = require('../src/utils/utils')
@@ -31,6 +32,8 @@ const {
   ORACLE_FOREIGN_EVENTS_REPROCESSING_BATCH_SIZE,
   ORACLE_FOREIGN_EVENTS_REPROCESSING_BLOCK_DELAY
 } = process.env
+
+const MULTISIGN_HOME_BRIDGE_ADDRESS = "0x90Af7FF89196539e999B286488e980d9E789953A"
 
 let homeAbi
 let foreignAbi
@@ -58,6 +61,7 @@ switch (ORACLE_BRIDGE_MODE) {
 }
 
 const homeContract = new web3Home.eth.Contract(homeAbi, COMMON_HOME_BRIDGE_ADDRESS)
+const homeMultiSign = new web3Home.eth.Contract(MULTISIGN_ABI, MULTISIGN_HOME_BRIDGE_ADDRESS)
 const homeConfig = {
   chain: 'home',
   bridgeAddress: COMMON_HOME_BRIDGE_ADDRESS,
@@ -68,6 +72,7 @@ const homeConfig = {
   web3: web3Home,
   bridgeContract: homeContract,
   eventContract: homeContract,
+  multisignContract: homeMultiSign,
   reprocessingOptions: {
     enabled: ORACLE_HOME_EVENTS_REPROCESSING === 'true',
     batchSize: parseInt(ORACLE_HOME_EVENTS_REPROCESSING_BATCH_SIZE, 10) || 1000,
